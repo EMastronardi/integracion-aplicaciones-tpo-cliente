@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.BusinessDelegate;
+
 /**
  * Servlet implementation class Controlador
  */
@@ -16,10 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 public class Controlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static Controlador instancia;
-
+	private BusinessDelegate bd = null;
 	public Controlador() {
 		super();
-		// TODO Auto-generated constructor stub
+		bd.getInstance();
+		
 	}
 
 	/**
