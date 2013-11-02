@@ -23,11 +23,10 @@ public class Controlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static Controlador instancia;
 	private BusinessDelegate bd = null;
-	
+	private boolean resultado;
 	public Controlador() {
 		super();
 		//bd.getInstance();
-	
 	}
 
 	/**
@@ -56,6 +55,16 @@ public class Controlador extends HttpServlet {
 		if ("default".equals(action)) {
 			jspPage = "/Login.jsp";
 		} else if ("salir".equals(action)) {
+			jspPage = "/Login.jsp";
+		} else if("nuevoUsuario".equals(action)){
+			String usuario = request.getParameter("usuario");
+			String password = request.getParameter("password");
+			resultado = bd.getInstance().crearUsuario(usuario, password);
+			if(resultado){
+				System.out.println("Usuario creado correctamente");
+			}else{
+				System.out.println("Error al crear el usuario");
+			}
 			jspPage = "/Login.jsp";
 		}
 		
