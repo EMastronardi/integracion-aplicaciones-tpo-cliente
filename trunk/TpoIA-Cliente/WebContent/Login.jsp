@@ -36,7 +36,7 @@ if(request.getParameter("usuario") != null){
 		<input type="submit" value="Aceptar" style=" font-style: normal; font-family: Verdana, Arial, Sans-Serif" />
 		<span><%= cadena %></span>
 		<br />
-		<a href="#">Nuevo Usuario</a>
+		<a href="crearUsuario.jsp">Nuevo Usuario</a>
 	</form>
 	</div>
 </body>
