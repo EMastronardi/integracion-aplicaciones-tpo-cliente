@@ -1,8 +1,12 @@
 package servlets;
 
+import integration.FacadeRemote;
+
 import java.io.IOException;
 
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,10 +23,11 @@ public class Controlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static Controlador instancia;
 	private BusinessDelegate bd = null;
+	
 	public Controlador() {
 		super();
-		bd.getInstance();
-		
+		//bd.getInstance();
+	
 	}
 
 	/**
@@ -39,7 +44,9 @@ public class Controlador extends HttpServlet {
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+		HttpServletResponse response) throws ServletException, IOException {
+		//bd.getInstance().crearUsuario("aaa", "aaa");
+		
 		String action = request.getParameter("action");
 		String jspPage = "/Login.jsp";
 
@@ -51,6 +58,7 @@ public class Controlador extends HttpServlet {
 		} else if ("salir".equals(action)) {
 			jspPage = "/Login.jsp";
 		}
+		
 		dispatch(jspPage, request, response);
 	}
 
@@ -65,5 +73,8 @@ public class Controlador extends HttpServlet {
 			rd.forward(request, response);
 		}
 	}
-
+	public void init(ServletConfig config) throws ServletException {
+	    super.init(config);
+	    bd.getInstance();
+	}
 }
