@@ -53,8 +53,8 @@ public class BusinessDelegate {
 			Hashtable jndiProps = new Hashtable();
 
 			jndiProps.put(Context.PROVIDER_URL, "remote://127.0.0.1:4447");
-			jndiProps.put(Context.SECURITY_PRINCIPAL, "dami");
-			jndiProps.put(Context.SECURITY_CREDENTIALS, "dami123");
+			jndiProps.put(Context.SECURITY_PRINCIPAL, "tpia");
+			jndiProps.put(Context.SECURITY_CREDENTIALS, "tpia123");
 			jndiProps.put(Context.URL_PKG_PREFIXES,"org.jboss.ejb.client.naming");
 			initialContext = new InitialContext(jndiProps);
 
