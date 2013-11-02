@@ -51,18 +51,12 @@ public class BusinessDelegate {
 	private void inicializarContexto() {
 		try {
 			Hashtable jndiProps = new Hashtable();
-
+			
 			jndiProps.put(Context.PROVIDER_URL, "remote://127.0.0.1:4447");
 			jndiProps.put(Context.SECURITY_PRINCIPAL, "tpia");
 			jndiProps.put(Context.SECURITY_CREDENTIALS, "tpia123");
 			jndiProps.put(Context.URL_PKG_PREFIXES,"org.jboss.ejb.client.naming");
 			initialContext = new InitialContext(jndiProps);
-
-			// FacadeRemote fachada = (FacadeRemote)
-			// context.lookup("ejb:TpoIA-ServidorEAR/TpoIA-Servidor/FacadeRemoteBean!integration.FacadeRemote");
-			//fachada.createUser("PIJA", "CAJETA");
-
-			// this.initialContext = new InitialContext(jndiProps);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
