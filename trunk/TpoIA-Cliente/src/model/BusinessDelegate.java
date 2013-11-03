@@ -51,7 +51,6 @@ public class BusinessDelegate {
 	private void inicializarContexto() {
 		try {
 			Hashtable jndiProps = new Hashtable();
-			
 			jndiProps.put(Context.PROVIDER_URL, "remote://127.0.0.1:4447");
 			jndiProps.put(Context.SECURITY_PRINCIPAL, "tpia");
 			jndiProps.put(Context.SECURITY_CREDENTIALS, "tpia123");
