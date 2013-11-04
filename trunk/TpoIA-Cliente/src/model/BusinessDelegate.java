@@ -60,4 +60,9 @@ public class BusinessDelegate {
 			ex.printStackTrace();
 		}
 	}
+
+	public boolean validarUsuario(String usuario, String password) {
+		return getFacadeRemote().validarUsuario(usuario, password);
+
+	}
 }

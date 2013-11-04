@@ -26,11 +26,11 @@
 
     <div class="container">
 		 
-      <form class="form-signin" action="Home.html">
+      <form class="form-signin" action="Controlador?action=validarLogin" method="post">
 	  	<img src="img/uade_small.png" />
         <h2 class="form-signin-heading">Despacho - Login</h2>
-        <input type="text" class="form-control" placeholder="Nombre de usuario" autofocus>
-        <input type="password" class="form-control" placeholder="Contraseña">
+        <input type="text" class="form-control" name="usuario" placeholder="Nombre de usuario" autofocus>
+        <input type="password" class="form-control" name="password" placeholder="Contraseña">
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Recordar mi contraseña
         </label>

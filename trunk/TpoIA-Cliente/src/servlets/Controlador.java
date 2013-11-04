@@ -9,6 +9,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,7 +57,24 @@ public class Controlador extends HttpServlet {
 			jspPage = "/Login.jsp";
 		} else if ("salir".equals(action)) {
 			jspPage = "/Login.jsp";
-		} else if("nuevoUsuario".equals(action)){
+		} else if ("validarLogin".equals(action)) {
+			String usuario = request.getParameter("usuario");
+			String password = request.getParameter("password");
+			resultado = bd.getInstance().validarUsuario(usuario, password);
+			if(resultado == true) //Usuario Valido
+			{
+				//Creando cookies
+				Cookie loginCookie = new Cookie("user",usuario);
+	            //setting cookie to expiry in 30 mins
+	            loginCookie.setMaxAge(30*60);
+	            response.addCookie(loginCookie);
+	            jspPage="/Home.jsp";
+			}else{ //Usuario Invalido
+				jspPage = "/Login.jsp?error=UsuarioInvalido";
+				
+			}
+		} 
+		else if("nuevoUsuario".equals(action)){
 			String usuario = request.getParameter("usuario");
 			String password = request.getParameter("password");
 			resultado = bd.getInstance().crearUsuario(usuario, password);
