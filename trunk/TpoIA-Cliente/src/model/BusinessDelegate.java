@@ -47,6 +47,10 @@ public class BusinessDelegate {
 		return getFacadeRemote().createUser(nombre, password);
 	}
 
+	public boolean login(String username, String password){
+		return getFacadeRemote().validarUsuario(username, password);
+	}
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void inicializarContexto() {
 		try {
