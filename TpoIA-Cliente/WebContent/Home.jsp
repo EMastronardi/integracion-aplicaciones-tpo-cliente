@@ -57,7 +57,7 @@ if(userName == null) response.sendRedirect("login.jsp");
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configuraci&oacute;n <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a href="#">Usuarios</a></li>
+          <li><a href="Users.jsp">Usuarios</a></li>
           <li><a href="#">Servicios</a></li>
 		  <li><a href="#">Modulos</a></li>
         </ul>
