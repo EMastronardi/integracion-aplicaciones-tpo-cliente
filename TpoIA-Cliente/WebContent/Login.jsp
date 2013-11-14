@@ -30,7 +30,7 @@
 	  	<img src="img/uade_small.png" />
         <h2 class="form-signin-heading">Despacho - Login</h2>
         <input type="text" class="form-control" name="usuario" placeholder="Nombre de usuario" autofocus>
-        <input type="password" class="form-control" name="password" placeholder="Contraseña">
+        <input type="password" class="form-control" name="password" placeholder="Contrase&ntilde;a">
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Recordar mi contraseña
         </label>

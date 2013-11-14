@@ -85,10 +85,10 @@ if(userName == null) response.sendRedirect("login.jsp");
 		   <li>Registrar un usuario</li>
 		   <li>Listar Usuarios</li>
 		   <li>Activar/Desactivar usuarios</li>
-		   <li>Listar Artículos (filtro por Depósito, búsqueda por código, etc)</li>
+		   <li>Listar Artículos (filtro por Dep&oacute;sito, b&uacute;squeda por c&oacte;digo, etc)</li>
 		   <li>Buscar y listar Ordenes de Despacho (junto con su detalle)</li>
 		   <li>Buscar y listar Solicitudes de Articulos </li>
-		   <li>Track de Ordenes de Despacho: Ver solicitudes de artículos y la recepción de los mismos y <br/>la notificación de entrega (con información detallada, indicando Depositos, Portal, Fecha y Hora)</li>
+		   <li>Track de Ordenes de Despacho: Ver solicitudes de artículos y la recepci&oacte;n de los mismos y <br/>la notificaci&oacte;n de entrega (con informaci&oacte;n detallada, indicando Depositos, Portal, Fecha y Hora)</li>
 		   </ul>
 		</p>
       </div>
@@ -97,9 +97,9 @@ if(userName == null) response.sendRedirect("login.jsp");
     <div id="footer">
       <div class="container">
         <p class="text-muted credit">
-		   TP Obligatorio - Integración de Aplicaciones - Curso 167215
+		   TP Obligatorio - Integraci&oacte;n de Aplicaciones - Curso 167215
 		   <br/>
-		   <b>Alumnos:</b> Emmanuel Mastronardi - Daniel Zanotti - Andrés Orellano - Damián Quiroga
+		   <b>Alumnos:</b> Emmanuel Mastronardi - Daniel Zanotti - Andr&eacte;s Orellano - Dami&aacte;n Quiroga
 		</p>
       </div>
     </div>
