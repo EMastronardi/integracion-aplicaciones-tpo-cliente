@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@page import="valueObjects.UsuarioVO" %>
+<%@page import="model.BusinessDelegate" %>
+<%@page import="java.util.*" %>
+<%
+ ArrayList<UsuarioVO> users = BusinessDelegate.getInstance().getUsers();
+%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,7 +15,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.png">
 
-    <title>TPIA / Despach / Login </title>
+    <title>TPIA / Despacho / Usuarios </title>
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -23,12 +29,98 @@
       <script src="../../assets/js/respond.min.js"></script>
     <![endif]-->
 	<script>
+			var idUsuario= "";
+			var usuario= "";
+			var password="";
 			$(function() {
   			// Handler for .ready() called.
-  	 		    bootbox.alert("Hello world!", function() {
-                				 console.log("Alert Callback");
-            	});
+				$( "#newUser" ).click(function() {
+					bootbox.dialog({
+						  message: "<form id='createuser' method='post' action='UsersServlet?action=createUser'>"+
+					        "<label>Nombre </label><input type=\"text\" class=\"form-control\" id='nameinput' name=\"usuario\" autofocus>"+
+					        "<br/>"+
+					        "<label>Password </label><input type=\"password\" class=\"form-control\" id='passinput' name=\"password\">"+
+					        "</form>",
+						  title: "Agregar Usuario",
+						  buttons: {
+						    success: {
+						      label: "Confirmar",
+						      className: "btn-success",
+						      callback: function() {
+							      if($( "#nameinput" ).val() != '' ||  $( "#passinput" ).val() != '' ){
+							    	  $( "#createuser" ).submit();
+								  }else{
+									  alert("Para dar de alta un usuario debe ingresar todos los campos");
+								 }  
+						      }
+						    }
+						  }
+					});
+				});
+				$( "#updateUser" ).click(function() {
+					updateUser();
+				});
+				$( "#deleteUser" ).click(function() {
+					deleteUser();
+				});
 			});
+			function unChecked(obj, useridSelect , userselect, passelect){
+				var checks = $( ":checkbox" );
+				for (var i = 0; i<checks.length; i++){
+					if(checks[i] != obj) checks[i].checked = false;
+				}
+				
+				idUsuario = useridSelect;
+				usuario = userselect;
+				password = passelect;
+			}
+			function updateUser (){		
+					bootbox.dialog({
+						  message: "<form id='updateuser' method='post' action='UsersServlet?action=updateUser'>"+
+							"<input type='hidden' name='iduser' value='"+idUsuario+"'/>"+
+					        "<label>Nombre </label><input type=\"text\" class=\"form-control\" id='nameinput' name=\"usuario\" placeholder='"+usuario+"' autofocus>"+
+					        "<br/>"+
+					        "<label>Password </label><input type=\"password\" class=\"form-control\" id='passinput' placeholder='Ingresar nuevo password' name=\"password\">"+
+					        "</form>",
+						  title: "Actualizar Usuario",
+						  buttons: {
+						    success: {
+						      label: "Confirmar",
+						      className: "btn-success",
+						      callback: function() {
+							      if($( "#nameinput" ).val() != '' ||  $( "#passinput" ).val() != '' ){
+							    	  $( "#updateuser" ).submit();
+								  }else{
+									  alert("Para dar de alta un usuario debe ingresar todos los campos");
+								 }  
+						      }
+						    }
+						  }
+					});
+			}
+			function deleteUser (){		
+				bootbox.dialog({
+					  message: "<h3>Esta seguro que desea eliminar a "+usuario+" como usuario del sistema?</h2>"+
+					  "<form id='deleteuser' method='post' action='UsersServlet?action=updateUser'>"+
+						"<input type='hidden' name='iduser' value='"+idUsuario+"'/>"+
+				        "</form>",
+					  title: "Eliminar Usuario",
+					  buttons: {
+					    success: {
+					      label: "Confirmar",
+					      className: "btn-success",
+					      callback: function() {
+					    	  $( "#deleteuser" ).submit();
+					      }
+					    },
+				        main: {
+						      label: "Cancelar",
+						      callback: function() {
+						      }
+						}
+					  }
+				});
+		}
 	</script>
 	<style>
 		   table tr th {
@@ -60,11 +152,11 @@
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
-      <li class="active"><a href="Home.jsp" id="inicio">Inicio</a></li>
+      <li><a href="Home.jsp" id="inicio">Inicio</a></li>
       <li><a href="#">Ordenes</a></li>
       <li><a href="#">Art&iacute;culos</a></li>
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configuraci&oacute;n <b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle active" data-toggle="dropdown">Configuraci&oacute;n <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a href="Users.jsp">Usuarios</a></li>
           <li><a href="#">Servicios</a></li>
@@ -89,13 +181,13 @@
 		   <div class="panel panel-default">
             <!-- Default panel contents -->
             <div class="panel-heading">
-			<button type="button" class="btn btn-default btn-sm">
+			<button type="button" id="newUser" class="btn btn-default btn-sm">
               <span class="glyphicon glyphicon-star"></span> Nuevo Usuario
             </button>
-			<button type="button" class="btn btn-default btn-sm">
+			<button type="button" id="updateUser" class="btn btn-default btn-sm">
               <span class="glyphicon glyphicon-pencil"></span> Editar 
             </button>
-			<button type="button" class="btn btn-default btn-sm">
+			<button type="button" id="deleteUser" class="btn btn-default btn-sm">
               <span class="glyphicon glyphicon-trash"></span> Eliminar 
             </button>
 			</div>
@@ -111,41 +203,12 @@
            	  	
 			  </thead>
 			  <tbody>
-			  	<tr>
-					<td><input type="checkbox" /></td>
-					<td>1</td>
-					<td>Damian</td>
-					<td>Quiroga</td>
-					<td>Dquiroga</td>																
-				</tr>
-				<tr>
-				<td><input type="checkbox" /></td>
-					<td>1</td>
-					<td>Damian</td>
-					<td>Quiroga</td>
-					<td>Dquiroga</td>																
-				</tr>	
-				<tr>
-				<td><input type="checkbox" /></td>
-					<td>1</td>
-					<td>Damian</td>
-					<td>Quiroga</td>
-					<td>Dquiroga</td>																
-				</tr>	
-				<tr>
-				<td><input type="checkbox" /></td>
-					<td>1</td>
-					<td>Damian</td>
-					<td>Quiroga</td>
-					<td>Dquiroga</td>																
-				</tr>	
-				<tr>
-				<td><input type="checkbox" /></td>
-					<td>1</td>
-					<td>Damian</td>
-					<td>Quiroga</td>
-					<td>Dquiroga</td>																
-				</tr>		 
+			  <%
+			  for(UsuarioVO user : users){
+				  out.println("<tr><td><input type='checkbox' value='"+user.getIdUsuario()+"' onClick=\"unChecked(this,'"+user.getIdUsuario()+"', '"+user.getNombre()+"' , '"+user.getPassword()+"' )\"/></td><td>"+user.getIdUsuario()+"</td><td>"+user.getNombre()+"</td><td></td><td></td</tr>");
+			  }
+			  
+			  %> 
 			  </tbody>
 		    </table>
           </div>

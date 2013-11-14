@@ -2,11 +2,13 @@ package model;
 
 import integration.FacadeRemote;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.Properties;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+
+import valueObjects.*;
 
 /**
  * Representación del servidor, lado cliente.
@@ -68,5 +70,14 @@ public class BusinessDelegate {
 	public boolean validarUsuario(String usuario, String password) {
 		return getFacadeRemote().validarUsuario(usuario, password);
 
+	}
+	public ArrayList<UsuarioVO> getUsers(){
+		return getFacadeRemote().getUsers();
+	}
+	public boolean updateUser(int idUser, String usuario, String password){
+		return getFacadeRemote().updateUser(idUser, usuario, password);
+	}
+	public boolean deleteUser(int idUser){
+		return getFacadeRemote().deleteUser(idUser);
 	}
 }
