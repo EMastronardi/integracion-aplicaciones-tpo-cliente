@@ -8,7 +8,8 @@ import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
-import valueObjects.*;
+import valueObjects.ModuloVO;
+import valueObjects.UsuarioVO;
 
 /**
  * Representación del servidor, lado cliente.
@@ -79,5 +80,21 @@ public class BusinessDelegate {
 	}
 	public boolean deleteUser(int idUser){
 		return getFacadeRemote().deleteUser(idUser);
+	}
+	public ArrayList<ModuloVO> getAllModulos(){
+		return getFacadeRemote().getAllModulos();
+	}
+	public boolean createModulo(String tipo, int idModulo, String ip, String nombre,
+			String codigo, String usuario, String password,
+			String jmsDestination){
+		return getFacadeRemote().createModulo(tipo, idModulo, ip, nombre, codigo, usuario, password, jmsDestination);
+	}
+	public boolean deleteModulo(int idModulo){
+		return getFacadeRemote().deleteModulo(idModulo);
+	}
+	public boolean updateModulo(String tipo, int idModulo, String ip, String nombre,
+			String codigo, String usuario, String password,
+			String jmsDestination){
+		return getFacadeRemote().updateModulo(tipo,  idModulo, ip, nombre, codigo,  usuario,  password, jmsDestination);
 	}
 }

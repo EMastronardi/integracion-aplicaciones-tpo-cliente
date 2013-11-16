@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@page import="valueObjects.UsuarioVO" %>
+<%@page import="valueObjects.ModuloVO" %>
 <%@page import="model.BusinessDelegate" %>
 <%@page import="java.util.*" %>
 <%
- ArrayList<UsuarioVO> users = BusinessDelegate.getInstance().getUsers();
+ ArrayList<ModuloVO> modulos = BusinessDelegate.getInstance().getAllModulos();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +15,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.png">
 
-    <title>TPIA / Despacho / Usuarios </title>
+    <title>TPIA / Despacho / Modulos </title>
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -29,28 +29,46 @@
       <script src="../../assets/js/respond.min.js"></script>
     <![endif]-->
 	<script>
-			var idUsuario= "";
-			var usuario= "";
-			var password="";
+
+			var idModulo= "";
+			var tipo= "";
+			var codigo="";
+			var ip ="";
+			var jmsdestination ="";
+			var nombre ="";
+			var usuario = "" ;
+			var password = "";
 			$(function() {
   			// Handler for .ready() called.
-				$( "#newUser" ).click(function() {
+				$( "#newModulo" ).click(function() {
 					bootbox.dialog({
-						  message: "<form id='createuser' method='post' action='UsersServlet?action=createUser'>"+
-					        "<label>Nombre </label><input type=\"text\" class=\"form-control\" id='nameinput' name=\"usuario\" autofocus>"+
+						  message: "<form id='createmodulo' method='post' action='ModulosServlet?action=createModulo'>"+
+						  	"<label>Identificador </label><input type=\"text\" class=\"form-control\" id='idmoduloinput' name=\"idmodulo\" autofocus>"+
+					        "<br/>"+
+					        "<label>Tipo </label><select name=\"tipo\"><option value=\"deposito\">Deposito</option><option value=\"portalweb\">Portal Web</option><option value=\"logistica\">Logistica</option></select>"+
+					        "<br/>"+
+					        "<label>Codigo </label><input type=\"text\" class=\"form-control\" id='codigoinput' name=\"codigo\">"+
+					        "<br/>"+
+					        "<label>IP </label><input type=\"text\" class=\"form-control\" id='ipinput' name=\"ip\">"+
+					        "<br/>"+
+					        "<label>Jms Destination </label><input type=\"text\" class=\"form-control\" id='jmsdestinationinput' name=\"jmsdestination\">"+
+					        "<br/>"+
+					        "<label>Nombre </label><input type=\"text\" class=\"form-control\" id='nombreinput' name=\"nombre\">"+
+					        "<br/>"+
+					        "<label>Usuario </label><input type=\"text\" class=\"form-control\" id='userinput' name=\"usuario\">"+
 					        "<br/>"+
 					        "<label>Password </label><input type=\"password\" class=\"form-control\" id='passinput' name=\"password\">"+
 					        "</form>",
-						  title: "Agregar Usuario",
+						  title: "Agregar Modulo",
 						  buttons: {
 						    success: {
 						      label: "Confirmar",
 						      className: "btn-success",
 						      callback: function() {
-							      if($( "#nameinput" ).val() != '' ||  $( "#passinput" ).val() != '' ){
-							    	  $( "#createuser" ).submit();
-								  }else{
-									  alert("Para dar de alta un usuario debe ingresar todos los campos");
+							     if($( "#idmoduloinput" ).val() != '' ||  $( "#codigoinput" ).val() != '' ||  $( "#ipinput" ).val() != '' ||  $( "#jmsdestinationinput" ).val() != '' ||  $( "#nombreinput" ).val() != '' ||  $( "#userinput" ).val() != '' ||  $( "#passinput" ).val() != ''){
+							   	  	$( "#createmodulo" ).submit();
+								}else{
+									  alert("Para dar de alta un modulo debe ingresar todos los campos");
 								 }  
 						      }
 						    }
@@ -60,57 +78,76 @@
 				$( "#updateUser" ).click(function() {
 					updateUser();
 				});
-				$( "#deleteUser" ).click(function() {
-					deleteUser();
+				$( "#deleteModulo" ).click(function() {
+					deleteModulo();
 				});
 			});
-			function unChecked(obj, useridSelect , userselect, passelect){
+			//
+
+			function unChecked(obj, tipoSelect , idmoduloselect, codigoselect, ipselect, jmsselect, nombreselect,userselect, passelect){
 				var checks = $( ":checkbox" );
 				for (var i = 0; i<checks.length; i++){
 					if(checks[i] != obj) checks[i].checked = false;
 				}
 				
-				idUsuario = useridSelect;
-				usuario = userselect;
-				password = passelect;
+				 idModulo= idmoduloselect;
+				 tipo= tipoSelect;
+				 codigo= tipoSelect;
+				 ip = ipselect;
+				 jmsdestination = ipselect;
+				 nombre = nombreselect;
+				 usuario = userselect;
+				 password = passelect;
 			}
 			function updateUser (){		
 					bootbox.dialog({
-						  message: "<form id='updateuser' method='post' action='UsersServlet?action=updateUser'>"+
-							"<input type='hidden' name='iduser' value='"+idUsuario+"'/>"+
-					        "<label>Nombre </label><input type=\"text\" class=\"form-control\" id='nameinput' name=\"usuario\" placeholder='"+usuario+"' autofocus>"+
-					        "<br/>"+
-					        "<label>Password </label><input type=\"password\" class=\"form-control\" id='passinput' placeholder='Ingresar nuevo password' name=\"password\">"+
-					        "</form>",
+						message: "<form id='updatemodulo' method='post' action='ModulosServlet?action=updateModulo'>"+
+					  	"<label>Identificador </label><input type=\"text\" class=\"form-control\" id='idmoduloinput' name=\"idmodulo\" value='"+idModulo+"'autofocus>"+
+				        "<br/>"+
+				        "<label>Tipo </label><select name=\"tipo\"><option value=\"deposito\">Deposito</option><option value=\"portalweb\">Portal Web</option><option value=\"logistica\">Logistica</option></select>"+
+				        "<br/>"+
+				        "<label>Codigo </label><input type=\"text\" class=\"form-control\" id='codigoinput' value='"+codigo+"' name=\"codigo\">"+
+				        "<br/>"+
+				        "<label>IP </label><input type=\"text\" class=\"form-control\" id='ipinput' name=\"ip\" value='"+ip+"'>"+
+				        "<br/>"+
+				        "<label>Jms Destination </label><input type=\"text\" class=\"form-control\" id='jmsdestinationinput' value='"+jmsdestination+"' name=\"jmsdestination\">"+
+				        "<br/>"+
+				        "<label>Nombre </label><input type=\"text\" class=\"form-control\" id='nombreinput' name=\"nombre\" value='"+nombre+"' >"+
+				        "<br/>"+
+				        "<label>Usuario </label><input type=\"text\" class=\"form-control\" id='userinput' name=\"usuario\" value='"+usuario+"' >"+
+				        "<br/>"+
+				        "<label>Password </label><input type=\"password\" class=\"form-control\" id='passinput' name=\"password\" value='"+password+"' >"+
+				        "</form>",	
+						  
 						  title: "Actualizar Usuario",
 						  buttons: {
 						    success: {
 						      label: "Confirmar",
 						      className: "btn-success",
 						      callback: function() {
-							      if($( "#nameinput" ).val() != '' ||  $( "#passinput" ).val() != '' ){
-							    	  $( "#updateuser" ).submit();
+						    	  if($( "#idmoduloinput" ).val() != '' ||  $( "#codigoinput" ).val() != '' ||  $( "#ipinput" ).val() != '' ||  $( "#jmsdestinationinput" ).val() != '' ||  $( "#nombreinput" ).val() != '' ||  $( "#userinput" ).val() != '' ||  $( "#passinput" ).val() != ''){
+								   	  	$( "#updatemodulo" ).submit();
 								  }else{
-									  alert("Para dar de alta un usuario debe ingresar todos los campos");
+									  alert("Para dar de modificar un modulo debe ingresar todos los campos");
 								 }  
 						      }
 						    }
 						  }
 					});
 			}
-			function deleteUser (){		
+			function deleteModulo (){		
 				bootbox.dialog({
-					  message: "<h3>Esta seguro que desea eliminar a "+usuario+" como usuario del sistema?</h2>"+
-					  "<form id='deleteuser' method='post' action='UsersServlet?action=deleteUser'>"+
-						"<input type='hidden' name='iduser' value='"+idUsuario+"'/>"+
+					  message: "<h3>Esta seguro que desea eliminar el modulo seleccionado?</h2>"+
+					  "<form id='deletemodulo' method='post' action='ModulosServlet?action=deleteModulo'>"+
+						"<input type='hidden' name='idmodulo' value='"+idModulo+"'/>"+
 				        "</form>",
-					  title: "Eliminar Usuario",
+					  title: "Eliminar Modulo",
 					  buttons: {
 					    success: {
 					      label: "Confirmar",
 					      className: "btn-success",
 					      callback: function() {
-					    	  $( "#deleteuser" ).submit();
+					    	  $( "#deletemodulo" ).submit();
 					      }
 					    },
 				        main: {
@@ -129,7 +166,15 @@
 		   table tr td{
 		   		   text-align:center;
 		   } 
-		    
+		   select {
+		   		display: block;
+				width: 100%;
+				height: 34px;
+				padding: 6px 12px;
+				font-size: 14px;
+				line-height: 1.428571429;
+				color: #555555;
+		   }
 	</style>
   </head>
 
@@ -175,19 +220,19 @@
       <!-- Begin page content -->
       <div class="container">
         <div class="page-header">
-          <h1>Gestion de Usuarios</h1>
+          <h1>Gestion de Modulos</h1>
         </div>
         <p class="lead">
 		   <div class="panel panel-default">
             <!-- Default panel contents -->
             <div class="panel-heading">
-			<button type="button" id="newUser" class="btn btn-default btn-sm">
-              <span class="glyphicon glyphicon-star"></span> Nuevo Usuario
+			<button type="button" id="newModulo" class="btn btn-default btn-sm">
+              <span class="glyphicon glyphicon-star"></span> Nuevo Modulo
             </button>
 			<button type="button" id="updateUser" class="btn btn-default btn-sm">
               <span class="glyphicon glyphicon-pencil"></span> Editar 
             </button>
-			<button type="button" id="deleteUser" class="btn btn-default btn-sm">
+			<button type="button" id="deleteModulo" class="btn btn-default btn-sm">
               <span class="glyphicon glyphicon-trash"></span> Eliminar 
             </button>
 			</div>
@@ -198,15 +243,19 @@
 					 <th>Check</th>
 			  		 <th>ID</th>
 			  		 <th>Nombre</th>
-			  		 <th>Apellido</th>
-			  		 <th>Username</th>
-           	  	
+			  		 <th>Tipo</th>
+			  		 <th>IP</th>
+			  		 <th>Codigo</th>
+	           	  	 <th>jmsDestination</th>
+	           	  	 <th>Usuario</th>
+	           	  	 <th>Password</th>
 			  </thead>
 			  <tbody>
 			  <%
-			  for(UsuarioVO user : users){
-				  out.println("<tr><td><input type='checkbox' value='"+user.getIdUsuario()+"' onClick=\"unChecked(this,'"+user.getIdUsuario()+"', '"+user.getNombre()+"' , '"+user.getPassword()+"' )\"/></td><td>"+user.getIdUsuario()+"</td><td>"+user.getNombre()+"</td><td></td><td></td</tr>");
-			  }
+			  //tipoSelect , idmoduloselect, codigoselect, ipselect, jmsselect, nombreselect,userselect, passelect
+			 	 for(ModuloVO modulo : modulos){
+					  out.println("<tr><td><input type='checkbox' value='"+modulo.getIdModulo()+"' onClick=\"unChecked(this,'"+modulo.getTipo()+"', '"+modulo.getIdModulo()+"' , '"+modulo.getCodigo()+"', '"+modulo.getIp()+"', '"+modulo.getJmsDestination()+"', '"+modulo.getNombre()+"', '"+modulo.getUsuario()+"', '"+modulo.getPassword()+"')\"/></td><td>"+modulo.getIdModulo()+"</td><td>"+modulo.getNombre()+"</td><td>"+modulo.getTipo()+"</td><td>"+modulo.getIp()+"</td><td>"+modulo.getCodigo()+"</td><td>"+modulo.getJmsDestination()+"</td><td>"+modulo.getUsuario()+"</td><td>"+modulo.getPassword()+"</td></tr>");
+				  }
 			  
 			  %> 
 			  </tbody>
