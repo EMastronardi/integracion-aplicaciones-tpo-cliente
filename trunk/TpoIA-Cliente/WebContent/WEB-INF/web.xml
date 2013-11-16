@@ -21,6 +21,15 @@
   <servlet-name>UsersServlet</servlet-name>
   <url-pattern>/UsersServlet</url-pattern>
  </servlet-mapping>
+  <servlet>
+  <display-name>ModulosServlet</display-name>
+  <servlet-name>ModulosServlet</servlet-name>
+  <servlet-class>servlets.ModulosServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>ModulosServlet</servlet-name>
+  <url-pattern>/ModulosServlet</url-pattern>
+ </servlet-mapping>
  <welcome-file-list>
   <welcome-file>index.html</welcome-file>
   <welcome-file>index.htm</welcome-file>
