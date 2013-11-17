@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.png">
 
-    <title>TPIA / Despach / Login </title>
+    <title>TPIA / Despacho / Login </title>
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -31,9 +31,7 @@
         <h2 class="form-signin-heading">Despacho - Login</h2>
         <input type="text" class="form-control" name="usuario" placeholder="Nombre de usuario" autofocus>
         <input type="password" class="form-control" name="password" placeholder="Contrase&ntilde;a">
-        <label class="checkbox">
-          <input type="checkbox" value="remember-me"> Recordar mi contraseña
-        </label>
+        
         <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
       </form>
     </div> <!-- /container -->

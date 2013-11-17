@@ -78,9 +78,9 @@
 					bootbox.dialog({
 						  message: "<form id='updateuser' method='post' action='UsersServlet?action=updateUser'>"+
 							"<input type='hidden' name='iduser' value='"+idUsuario+"'/>"+
-					        "<label>Nombre </label><input type=\"text\" class=\"form-control\" id='nameinput' name=\"usuario\" placeholder='"+usuario+"' autofocus>"+
+					        "<label>Nombre </label><input type=\"text\" class=\"form-control\" id='nameinput' name=\"usuario\" value='"+usuario+"' autofocus>"+
 					        "<br/>"+
-					        "<label>Password </label><input type=\"password\" class=\"form-control\" id='passinput' placeholder='Ingresar nuevo password' name=\"password\">"+
+					        "<label>Password </label><input type=\"password\" class=\"form-control\" id='passinput' value='"+password+"' name=\"password\">"+
 					        "</form>",
 						  title: "Actualizar Usuario",
 						  buttons: {
@@ -146,37 +146,47 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="#">TPO-IA / Despacho</a>
+    <a class="navbar-brand" href="#">TPO-IA / Despacho - Usuario: </a>
   </div>
 
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
       <li><a href="Home.jsp" id="inicio">Inicio</a></li>
-      <li><a href="#">Ordenes</a></li>
-      <li><a href="#">Art&iacute;culos</a></li>
+      <li><a href="Ordenes.jsp">Ordenes</a></li>
+      <li><a href="Solicitudes.jsp">Solicitudes</a></li>
+      <li><a href="Articulos.jsp">Art&iacute;culos</a></li>
       <li class="dropdown">
         <a href="#" class="dropdown-toggle active" data-toggle="dropdown">Configuraci&oacute;n <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a href="Users.jsp">Usuarios</a></li>
           <li><a href="#">Servicios</a></li>
-		  <li><a href="#">Modulos</a></li>
+		  <li><a href="Modulos.jsp">Modulos</a></li>
         </ul>
       </li>
     </ul>
-    <form class="navbar-form navbar-right" role="search">
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Buscar Orden">
-      </div>
-      <button type="submit" class="btn btn-default">Buscar</button>
-    </form>
   </div><!-- /.navbar-collapse -->
 </nav>
       <!-- Begin page content -->
       <div class="container">
+      	<ol class="breadcrumb">
+  			<li><a href="Home.jsp">Inicio</a></li>
+  			<li><a href="#">Configuraci&oacute;n</a></li>
+  			<li class="active">Usuarios</li>
+		</ol>
         <div class="page-header">
           <h1>Gestion de Usuarios</h1>
-        </div>
+          </div>
+          <%
+          if(request.getAttribute("return") != null ){
+        	if(request.getAttribute("return").equals("OK")){
+        		out.println("<div class=\"alert alert-success\"><b>El proceso se ha realizado de manera exitosa</b></div>");
+        	}else{
+        		out.println("<div class=\"alert alert-danger\"><b>El proceso se ha finalizado con error. Vuelva a intentarlo nuevamente.</b></div>");
+        	}
+          }
+          %>
+        
         <p class="lead">
 		   <div class="panel panel-default">
             <!-- Default panel contents -->
@@ -198,31 +208,17 @@
 					 <th>Check</th>
 			  		 <th>ID</th>
 			  		 <th>Nombre</th>
-			  		 <th>Apellido</th>
-			  		 <th>Username</th>
-           	  	
 			  </thead>
 			  <tbody>
 			  <%
 			  for(UsuarioVO user : users){
-				  out.println("<tr><td><input type='checkbox' value='"+user.getIdUsuario()+"' onClick=\"unChecked(this,'"+user.getIdUsuario()+"', '"+user.getNombre()+"' , '"+user.getPassword()+"' )\"/></td><td>"+user.getIdUsuario()+"</td><td>"+user.getNombre()+"</td><td></td><td></td</tr>");
+				  out.println("<tr><td><input type='checkbox' value='"+user.getIdUsuario()+"' onClick=\"unChecked(this,'"+user.getIdUsuario()+"', '"+user.getNombre()+"' , '"+user.getPassword()+"' )\"/></td><td>"+user.getIdUsuario()+"</td><td>"+user.getNombre()+"</td></tr>");
 			  }
 			  
 			  %> 
 			  </tbody>
 		    </table>
           </div>
-		  <div>
-          	   <ul class="pagination">
-                  <li><a href="#">«</a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li><a href="#">»</a></li>
-         	   </ul>
-      	  </div>
 		</p>
       </div>
     </div>

@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.png">
 
-    <title>TPIA / Despach / Login </title>
+    <title>TPIA / Despacho / Home </title>
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -31,7 +31,7 @@ for(Cookie cookie : cookies){
     if(cookie.getName().equals("user")) userName = cookie.getValue();
 }
 }
-if(userName == null) response.sendRedirect("login.jsp");
+if(userName == null) response.sendRedirect("Login.jsp");
 %>
 <!-- Wrap all page content here -->
     <div id="wrap">
@@ -52,26 +52,17 @@ if(userName == null) response.sendRedirect("login.jsp");
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
       <li class="active"><a href="#">Inicio</a></li>
-      <li><a href="#">Ordenes</a></li>
-      <li><a href="#">Art&iacute;culos</a></li>
+      <li><a href="Ordenes.jsp">Ordenes</a></li>
+      <li><a href="Articulos.jsp">Art&iacute;culos</a></li>
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configuraci&oacute;n <b class="caret"></b></a>
+        <a href="Configuracion.jsp" class="dropdown-toggle" data-toggle="dropdown">Configuraci&oacute;n <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a href="Users.jsp">Usuarios</a></li>
           <li><a href="#">Servicios</a></li>
-		  <li><a href="#">Modulos</a></li>
+		  <li><a href="Modulos.jsp">Modulos</a></li>
         </ul>
-       
-        
       </li>
-      
     </ul>
-    <form class="navbar-form navbar-right" role="search">
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Buscar Orden">
-      </div>
-      <button type="submit" class="btn btn-default">Buscar</button>
-    </form>
   </div><!-- /.navbar-collapse -->
 </nav>
       <!-- Begin page content -->
@@ -85,10 +76,10 @@ if(userName == null) response.sendRedirect("login.jsp");
 		   <li>Registrar un usuario</li>
 		   <li>Listar Usuarios</li>
 		   <li>Activar/Desactivar usuarios</li>
-		   <li>Listar Artículos (filtro por Dep&oacute;sito, b&uacute;squeda por c&oacte;digo, etc)</li>
+		   <li>Listar Art&iacute;culos (filtro por Dep&oacute;sito, b&uacute;squeda por c&oacte;digo, etc)</li>
 		   <li>Buscar y listar Ordenes de Despacho (junto con su detalle)</li>
 		   <li>Buscar y listar Solicitudes de Articulos </li>
-		   <li>Track de Ordenes de Despacho: Ver solicitudes de artículos y la recepci&oacte;n de los mismos y <br/>la notificaci&oacte;n de entrega (con informaci&oacte;n detallada, indicando Depositos, Portal, Fecha y Hora)</li>
+		   <li>Track de Ordenes de Despacho: Ver solicitudes de art&iacute;culos y la recepci&oacte;n de los mismos y <br/>la notificaci&oacte;n de entrega (con informaci&oacte;n detallada, indicando Depositos, Portal, Fecha y Hora)</li>
 		   </ul>
 		</p>
       </div>
