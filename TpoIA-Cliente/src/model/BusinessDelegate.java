@@ -8,6 +8,7 @@ import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
+import valueObjects.ArticuloVO;
 import valueObjects.ModuloVO;
 import valueObjects.UsuarioVO;
 import xml.RespuestaXML;
@@ -97,6 +98,12 @@ public class BusinessDelegate {
 			String codigo, String usuario, String password,
 			String jmsDestination){
 		return getFacadeRemote().updateModulo(tipo,  idModulo, ip, nombre, codigo,  usuario,  password, jmsDestination);
+	}
+	public ArrayList<ArticuloVO> getAllArticulos(){
+		return getFacadeRemote().getArticulos();
+	}
+	public ArrayList<ArticuloVO> searchArticulos(String filtro, int valor){
+		return getFacadeRemote().searchArticulos(filtro, valor);
 	}
 	public RespuestaXML recibirArticulos(String jsonData){
 		return getFacadeRemote().recibirArticulos(jsonData);

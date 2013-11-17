@@ -54,7 +54,6 @@ public class ModulosServlet extends HttpServlet {
 			jspPage = "/Login.jsp";
 		} 
 		else if("createModulo".equals(action)){
-			
 			int idModulo = Integer.parseInt(request.getParameter("idmodulo"));
 			String tipo = request.getParameter("tipo");
 			String codigo = request.getParameter("codigo");
@@ -63,13 +62,12 @@ public class ModulosServlet extends HttpServlet {
 			String nombre = request.getParameter("nombre");
 			String usuario = request.getParameter("usuario");
 			String password = request.getParameter("password");
-			//String tipo, int idModulo, String ip, String nombre,
-			//String codigo, String usuario, String password,
-			//String jmsDestination
 			resultado = bd.getInstance().createModulo(tipo, idModulo, ip, nombre, codigo, usuario, password, jmsdestination);
 			if(resultado){
+				request.setAttribute("return", "OK");
 				System.out.println("Modulo creado correctamente");
 			}else{
+				request.setAttribute("return", "NOK");
 				System.out.println("Error al crear el modulo");
 			}
 			
@@ -85,8 +83,10 @@ public class ModulosServlet extends HttpServlet {
 			String password = request.getParameter("password");
 			resultado = bd.getInstance().updateModulo(tipo, idModulo, ip, nombre, codigo, usuario, password, jmsdestination);
 			if(resultado){
+				request.setAttribute("return", "OK");
 				System.out.println("Modulo actualizado correctamente");
 			}else{
+				request.setAttribute("return", "NOK");
 				System.out.println("Error al actualizar el modulo");
 			}
 			jspPage = "/Modulos.jsp";
@@ -95,8 +95,10 @@ public class ModulosServlet extends HttpServlet {
 			int idModulo = Integer.parseInt(request.getParameter("idmodulo"));
 			resultado = bd.getInstance().deleteModulo(idModulo);
 			if(resultado){
+				request.setAttribute("return", "OK");
 				System.out.println("Modulo eliminado correctamente");
 			}else{
+				request.setAttribute("return", "NOK");
 				System.out.println("Error al eliminar el Modulo");
 			}
 			jspPage = "/Modulos.jsp";
