@@ -10,6 +10,7 @@ import javax.naming.InitialContext;
 
 import valueObjects.ModuloVO;
 import valueObjects.UsuarioVO;
+import xml.RespuestaXML;
 
 /**
  * Representación del servidor, lado cliente.
@@ -96,5 +97,8 @@ public class BusinessDelegate {
 			String codigo, String usuario, String password,
 			String jmsDestination){
 		return getFacadeRemote().updateModulo(tipo,  idModulo, ip, nombre, codigo,  usuario,  password, jmsDestination);
+	}
+	public RespuestaXML recibirArticulos(String jsonData){
+		return getFacadeRemote().recibirArticulos(jsonData);
 	}
 }
