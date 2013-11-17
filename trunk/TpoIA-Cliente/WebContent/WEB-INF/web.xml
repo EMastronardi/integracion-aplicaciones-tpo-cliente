@@ -30,6 +30,15 @@
   <servlet-name>ModulosServlet</servlet-name>
   <url-pattern>/ModulosServlet</url-pattern>
  </servlet-mapping>
+ <servlet>
+  <display-name>ArticulosServlet</display-name>
+  <servlet-name>ArticulosServlet</servlet-name>
+  <servlet-class>servlets.ArticulosServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>ArticulosServlet</servlet-name>
+  <url-pattern>/ArticulosServlet</url-pattern>
+ </servlet-mapping>
  <welcome-file-list>
   <welcome-file>index.html</welcome-file>
   <welcome-file>index.htm</welcome-file>
