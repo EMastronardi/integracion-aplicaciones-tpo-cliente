@@ -38,6 +38,7 @@
 			var nombre ="";
 			var usuario = "" ;
 			var password = "";
+			var rest = "";
 			$(function() {
   			// Handler for .ready() called.
 				$( "#newModulo" ).click(function() {
@@ -53,6 +54,8 @@
 					        "<br/>"+
 					        "<label>Jms Destination </label><input type=\"text\" class=\"form-control\" id='jmsdestinationinput' name=\"jmsdestination\">"+
 					        "<br/>"+
+					        "<label>Rest Destination </label><input type=\"text\" class=\"form-control\" id='restinput' name=\"rest\">"+
+					        "<br/>"+
 					        "<label>Nombre </label><input type=\"text\" class=\"form-control\" id='nombreinput' name=\"nombre\">"+
 					        "<br/>"+
 					        "<label>Usuario </label><input type=\"text\" class=\"form-control\" id='userinput' name=\"usuario\">"+
@@ -65,7 +68,7 @@
 						      label: "Confirmar",
 						      className: "btn-success",
 						      callback: function() {
-							     if($( "#idmoduloinput" ).val() != '' ||  $( "#codigoinput" ).val() != '' ||  $( "#ipinput" ).val() != '' ||  $( "#jmsdestinationinput" ).val() != '' ||  $( "#nombreinput" ).val() != '' ||  $( "#userinput" ).val() != '' ||  $( "#passinput" ).val() != ''){
+							     if($( "#idmoduloinput" ).val() != '' ||  $( "#codigoinput" ).val() != '' ||  $( "#ipinput" ).val() != '' ||  $( "#jmsdestinationinput" ).val() != '' ||  $( "#nombreinput" ).val() != '' ||  $( "#userinput" ).val() != '' ||  $( "#passinput" ).val() != '' ||  $( "#restinput" ).val() != ''){
 							   	  	$( "#createmodulo" ).submit();
 								}else{
 									  alert("Para dar de alta un modulo debe ingresar todos los campos");
@@ -84,7 +87,7 @@
 			});
 			//
 
-			function unChecked(obj, tipoSelect , idmoduloselect, codigoselect, ipselect, jmsselect, nombreselect,userselect, passelect){
+			function unChecked(obj, tipoSelect , idmoduloselect, codigoselect, ipselect, jmsselect, nombreselect,userselect, passelect, restselect){
 				var checks = $( ":checkbox" );
 				for (var i = 0; i<checks.length; i++){
 					if(checks[i] != obj) checks[i].checked = false;
@@ -98,6 +101,7 @@
 				 nombre = nombreselect;
 				 usuario = userselect;
 				 password = passelect;
+				 rest = restselect;
 			}
 			function updateUser (){
 					if(idModulo != ""){
@@ -113,6 +117,8 @@
 					        "<br/>"+
 					        "<label>Jms Destination </label><input type=\"text\" class=\"form-control\" id='jmsdestinationinput' value='"+jmsdestination+"' name=\"jmsdestination\">"+
 					        "<br/>"+
+					        "<label>Rest Destination </label><input type=\"text\" class=\"form-control\" id='restinput' value='"+rest+"' name=\"rest\">"+
+					        "<br/>"+
 					        "<label>Nombre </label><input type=\"text\" class=\"form-control\" id='nombreinput' name=\"nombre\" value='"+nombre+"' >"+
 					        "<br/>"+
 					        "<label>Usuario </label><input type=\"text\" class=\"form-control\" id='userinput' name=\"usuario\" value='"+usuario+"' >"+
@@ -126,7 +132,7 @@
 							      label: "Confirmar",
 							      className: "btn-success",
 							      callback: function() {
-							    	  if($( "#idmoduloinput" ).val() != '' ||  $( "#codigoinput" ).val() != '' ||  $( "#ipinput" ).val() != '' ||  $( "#jmsdestinationinput" ).val() != '' ||  $( "#nombreinput" ).val() != '' ||  $( "#userinput" ).val() != '' ||  $( "#passinput" ).val() != ''){
+							    	  if($( "#idmoduloinput" ).val() != '' ||  $( "#codigoinput" ).val() != '' ||  $( "#ipinput" ).val() != '' ||  $( "#jmsdestinationinput" ).val() != '' ||  $( "#nombreinput" ).val() != '' ||  $( "#userinput" ).val() != '' ||  $( "#passinput" ).val() != '' ||  $( "#restinput" ).val() != ''){
 									   	  	$( "#updatemodulo" ).submit();
 									  }else{
 										  alert("Para dar de modificar un modulo debe ingresar todos los campos");
@@ -266,6 +272,7 @@
 			  		 <th>IP</th>
 			  		 <th>Codigo</th>
 	           	  	 <th>jmsDestination</th>
+	           	  	 <th>Rest Destination</th> 
 	           	  	 <th>Usuario</th>
 	           	  	 <th>Password</th>
 			  </thead>
@@ -273,7 +280,7 @@
 			  <%
 			  //tipoSelect , idmoduloselect, codigoselect, ipselect, jmsselect, nombreselect,userselect, passelect
 			 	 for(ModuloVO modulo : modulos){
-					  out.println("<tr><td><input type='checkbox' value='"+modulo.getIdModulo()+"' onClick=\"unChecked(this,'"+modulo.getTipo()+"', '"+modulo.getIdModulo()+"' , '"+modulo.getCodigo()+"', '"+modulo.getIp()+"', '"+modulo.getJmsDestination()+"', '"+modulo.getNombre()+"', '"+modulo.getUsuario()+"', '"+modulo.getPassword()+"')\"/></td><td>"+modulo.getIdModulo()+"</td><td>"+modulo.getNombre()+"</td><td>"+modulo.getTipo()+"</td><td>"+modulo.getIp()+"</td><td>"+modulo.getCodigo()+"</td><td>"+modulo.getJmsDestination()+"</td><td>"+modulo.getUsuario()+"</td><td>"+modulo.getPassword()+"</td></tr>");
+					  out.println("<tr><td><input type='checkbox' value='"+modulo.getIdModulo()+"' onClick=\"unChecked(this,'"+modulo.getTipo()+"', '"+modulo.getIdModulo()+"' , '"+modulo.getCodigo()+"', '"+modulo.getIp()+"', '"+modulo.getJmsDestination()+"', '"+modulo.getNombre()+"', '"+modulo.getUsuario()+"', '"+modulo.getPassword()+"', '"+modulo.getRestDestinationLogisticaCambioEstado()+"')\"/></td><td>"+modulo.getIdModulo()+"</td><td>"+modulo.getNombre()+"</td><td>"+modulo.getTipo()+"</td><td>"+modulo.getIp()+"</td><td>"+modulo.getCodigo()+"</td><td>"+modulo.getJmsDestination()+"</td><td>"+modulo.getRestDestinationLogisticaCambioEstado()+"</td><td>"+modulo.getUsuario()+"</td><td>"+modulo.getPassword()+"</td></tr>");
 				  }
 			  
 			  %> 
