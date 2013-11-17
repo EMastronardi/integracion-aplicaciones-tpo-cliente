@@ -92,71 +92,80 @@
 				
 				 idModulo= idmoduloselect;
 				 tipo= tipoSelect;
-				 codigo= tipoSelect;
+				 codigo= codigoselect;
 				 ip = ipselect;
-				 jmsdestination = ipselect;
+				 jmsdestination = jmsselect;
 				 nombre = nombreselect;
 				 usuario = userselect;
 				 password = passelect;
 			}
-			function updateUser (){		
+			function updateUser (){
+					if(idModulo != ""){
+						bootbox.dialog({
+							message: "<form id='updatemodulo' method='post' action='ModulosServlet?action=updateModulo'>"+
+						  	"<label>Identificador </label><input type=\"text\" class=\"form-control\" id='idmoduloinput' name=\"idmodulo\" value='"+idModulo+"'autofocus>"+
+					        "<br/>"+
+					        "<label>Tipo </label><select name=\"tipo\"><option value=\"deposito\">Deposito</option><option value=\"portalweb\">Portal Web</option><option value=\"logistica\">Logistica</option></select>"+
+					        "<br/>"+
+					        "<label>Codigo </label><input type=\"text\" class=\"form-control\" id='codigoinput' value='"+codigo+"' name=\"codigo\">"+
+					        "<br/>"+
+					        "<label>IP </label><input type=\"text\" class=\"form-control\" id='ipinput' name=\"ip\" value='"+ip+"'>"+
+					        "<br/>"+
+					        "<label>Jms Destination </label><input type=\"text\" class=\"form-control\" id='jmsdestinationinput' value='"+jmsdestination+"' name=\"jmsdestination\">"+
+					        "<br/>"+
+					        "<label>Nombre </label><input type=\"text\" class=\"form-control\" id='nombreinput' name=\"nombre\" value='"+nombre+"' >"+
+					        "<br/>"+
+					        "<label>Usuario </label><input type=\"text\" class=\"form-control\" id='userinput' name=\"usuario\" value='"+usuario+"' >"+
+					        "<br/>"+
+					        "<label>Password </label><input type=\"password\" class=\"form-control\" id='passinput' name=\"password\" value='"+password+"' >"+
+					        "</form>",	
+							  
+							  title: "Actualizar Modulo",
+							  buttons: {
+							    success: {
+							      label: "Confirmar",
+							      className: "btn-success",
+							      callback: function() {
+							    	  if($( "#idmoduloinput" ).val() != '' ||  $( "#codigoinput" ).val() != '' ||  $( "#ipinput" ).val() != '' ||  $( "#jmsdestinationinput" ).val() != '' ||  $( "#nombreinput" ).val() != '' ||  $( "#userinput" ).val() != '' ||  $( "#passinput" ).val() != ''){
+									   	  	$( "#updatemodulo" ).submit();
+									  }else{
+										  alert("Para dar de modificar un modulo debe ingresar todos los campos");
+									 }  
+							      }
+							    }
+							  }
+						});
+					}else{
+						bootbox.alert("Debe seleccionar un Modulo!", function() {});
+					}
+					
+			}
+			function deleteModulo (){	
+				if(idModulo!=""){	
 					bootbox.dialog({
-						message: "<form id='updatemodulo' method='post' action='ModulosServlet?action=updateModulo'>"+
-					  	"<label>Identificador </label><input type=\"text\" class=\"form-control\" id='idmoduloinput' name=\"idmodulo\" value='"+idModulo+"'autofocus>"+
-				        "<br/>"+
-				        "<label>Tipo </label><select name=\"tipo\"><option value=\"deposito\">Deposito</option><option value=\"portalweb\">Portal Web</option><option value=\"logistica\">Logistica</option></select>"+
-				        "<br/>"+
-				        "<label>Codigo </label><input type=\"text\" class=\"form-control\" id='codigoinput' value='"+codigo+"' name=\"codigo\">"+
-				        "<br/>"+
-				        "<label>IP </label><input type=\"text\" class=\"form-control\" id='ipinput' name=\"ip\" value='"+ip+"'>"+
-				        "<br/>"+
-				        "<label>Jms Destination </label><input type=\"text\" class=\"form-control\" id='jmsdestinationinput' value='"+jmsdestination+"' name=\"jmsdestination\">"+
-				        "<br/>"+
-				        "<label>Nombre </label><input type=\"text\" class=\"form-control\" id='nombreinput' name=\"nombre\" value='"+nombre+"' >"+
-				        "<br/>"+
-				        "<label>Usuario </label><input type=\"text\" class=\"form-control\" id='userinput' name=\"usuario\" value='"+usuario+"' >"+
-				        "<br/>"+
-				        "<label>Password </label><input type=\"password\" class=\"form-control\" id='passinput' name=\"password\" value='"+password+"' >"+
-				        "</form>",	
-						  
-						  title: "Actualizar Usuario",
+						  message: "<h3>Esta seguro que desea eliminar el modulo seleccionado?</h2>"+
+						  "<form id='deletemodulo' method='post' action='ModulosServlet?action=deleteModulo'>"+
+							"<input type='hidden' name='idmodulo' value='"+idModulo+"'/>"+
+					        "</form>",
+						  title: "Eliminar Modulo",
 						  buttons: {
 						    success: {
 						      label: "Confirmar",
 						      className: "btn-success",
 						      callback: function() {
-						    	  if($( "#idmoduloinput" ).val() != '' ||  $( "#codigoinput" ).val() != '' ||  $( "#ipinput" ).val() != '' ||  $( "#jmsdestinationinput" ).val() != '' ||  $( "#nombreinput" ).val() != '' ||  $( "#userinput" ).val() != '' ||  $( "#passinput" ).val() != ''){
-								   	  	$( "#updatemodulo" ).submit();
-								  }else{
-									  alert("Para dar de modificar un modulo debe ingresar todos los campos");
-								 }  
+						    	  $( "#deletemodulo" ).submit();
 						      }
-						    }
+						    },
+					        main: {
+							      label: "Cancelar",
+							      callback: function() {
+							      }
+							}
 						  }
 					});
-			}
-			function deleteModulo (){		
-				bootbox.dialog({
-					  message: "<h3>Esta seguro que desea eliminar el modulo seleccionado?</h2>"+
-					  "<form id='deletemodulo' method='post' action='ModulosServlet?action=deleteModulo'>"+
-						"<input type='hidden' name='idmodulo' value='"+idModulo+"'/>"+
-				        "</form>",
-					  title: "Eliminar Modulo",
-					  buttons: {
-					    success: {
-					      label: "Confirmar",
-					      className: "btn-success",
-					      callback: function() {
-					    	  $( "#deletemodulo" ).submit();
-					      }
-					    },
-				        main: {
-						      label: "Cancelar",
-						      callback: function() {
-						      }
-						}
-					  }
-				});
+				} else {
+					bootbox.alert("Debe seleccionar un Modulo!", function() {});
+				}
 		}
 	</script>
 	<style>
@@ -198,30 +207,39 @@
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
       <li><a href="Home.jsp" id="inicio">Inicio</a></li>
-      <li><a href="#">Ordenes</a></li>
-      <li><a href="#">Art&iacute;culos</a></li>
+      <li><a href="Ordenes.jsp">Ordenes</a></li>
+      <li><a href="Solicitudes.jsp">Solicitudes</a></li>
+      <li><a href="Articulos.jsp">Art&iacute;culos</a></li>
       <li class="dropdown">
         <a href="#" class="dropdown-toggle active" data-toggle="dropdown">Configuraci&oacute;n <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a href="Users.jsp">Usuarios</a></li>
           <li><a href="#">Servicios</a></li>
-		  <li><a href="#">Modulos</a></li>
+		  <li><a href="Modulos.jsp">Modulos</a></li>
         </ul>
       </li>
     </ul>
-    <form class="navbar-form navbar-right" role="search">
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Buscar Orden">
-      </div>
-      <button type="submit" class="btn btn-default">Buscar</button>
-    </form>
   </div><!-- /.navbar-collapse -->
 </nav>
       <!-- Begin page content -->
       <div class="container">
+      <ol class="breadcrumb">
+  			<li><a href="Home.jsp">Inicio</a></li>
+  			<li><a href="#">Configuraci&oacute;n</a></li>
+  			<li class="active">Modulos</li>
+		</ol>
         <div class="page-header">
-          <h1>Gestion de Modulos</h1>
+          <h1>Gesti&oacute;n de Modulos</h1>
         </div>
+         <%
+          if(request.getAttribute("return") != null ){
+        	if(request.getAttribute("return").equals("OK")){
+        		out.println("<div class=\"alert alert-success\"><b>El proceso se ha realizado de manera exitosa.</b></div>");
+        	}else{
+        		out.println("<div class=\"alert alert-danger\"><b>El proceso se ha finalizado con error. Vuelva a intentarlo nuevamente.</b></div>");
+        	}
+          }
+          %>
         <p class="lead">
 		   <div class="panel panel-default">
             <!-- Default panel contents -->
@@ -237,6 +255,7 @@
             </button>
 			</div>
             <!-- Table -->
+            <% if(modulos.size() > 0) {%>
             <table class="table">
               <thead>
 			  	<tr>
@@ -260,18 +279,10 @@
 			  %> 
 			  </tbody>
 		    </table>
+		    <%}else{ %>
+		    	<div class="alert alert-info"><b>No se ha cargado ningun Modulo</b></div>
+		    <%} %>
           </div>
-		  <div>
-          	   <ul class="pagination">
-                  <li><a href="#">«</a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li><a href="#">»</a></li>
-         	   </ul>
-      	  </div>
 		</p>
       </div>
     </div>
