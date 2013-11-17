@@ -57,9 +57,12 @@ public class UsersServlet extends HttpServlet {
 			String usuario = request.getParameter("usuario");
 			String password = request.getParameter("password");
 			resultado = bd.getInstance().crearUsuario(usuario, password);
+
 			if(resultado){
+				request.setAttribute("return", "OK");
 				System.out.println("Usuario creado correctamente");
 			}else{
+				request.setAttribute("return", "NOK");
 				System.out.println("Error al crear el usuario");
 			}
 			jspPage = "/Users.jsp";
@@ -68,9 +71,12 @@ public class UsersServlet extends HttpServlet {
 			String password = request.getParameter("password");
 			int idUser = Integer.parseInt(request.getParameter("iduser"));
 			resultado = bd.getInstance().updateUser(idUser, usuario, password);
+			
 			if(resultado){
+				request.setAttribute("return", "OK");
 				System.out.println("Usuario actualizado correctamente");
 			}else{
+				request.setAttribute("return", "NOK");
 				System.out.println("Error al actualizar el usuario");
 			}
 			jspPage = "/Users.jsp";
@@ -78,9 +84,12 @@ public class UsersServlet extends HttpServlet {
 			
 			int idUser = Integer.parseInt(request.getParameter("iduser"));
 			resultado = bd.getInstance().deleteUser(idUser);
+			request.setAttribute("event", "delete");
 			if(resultado){
+				request.setAttribute("return", "OK");
 				System.out.println("Usuario eliminado correctamente");
 			}else{
+				request.setAttribute("return", "NOK");
 				System.out.println("Error al eliminar el usuario");
 			}
 			jspPage = "/Users.jsp";

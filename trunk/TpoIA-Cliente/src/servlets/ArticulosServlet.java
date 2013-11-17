@@ -18,12 +18,12 @@ import valueObjects.*;
  * Servlet implementation class Controlador
  */
 @WebServlet("/Controlador")
-public class Controlador extends HttpServlet {
+public class ArticulosServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static Controlador instancia;
+	private static ArticulosServlet instancia;
 	private BusinessDelegate bd = null;
 	private boolean resultado;
-	public Controlador() {
+	public ArticulosServlet() {
 		super();
 		//bd.getInstance();
 	}
@@ -43,52 +43,23 @@ public class Controlador extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 		HttpServletResponse response) throws ServletException, IOException {
-		//bd.getInstance().crearUsuario("aaa", "aaa");
-		
-		
-		
 		String action = request.getParameter("action");
 		String jspPage = "/Login.jsp";
 
 		if ((action == null) || action.length() < 1) {
 			action = "default";
 		}
+		
 		if ("default".equals(action)) {
 			jspPage = "/Login.jsp";
-		} else if ("salir".equals(action)) {
-			jspPage = "/Login.jsp";
-		} else if ("validarLogin".equals(action)) {
-			String usuario = request.getParameter("usuario");
-			String password = request.getParameter("password");
-			resultado = bd.getInstance().validarUsuario(usuario, password);
-			if(resultado == true) //Usuario Valido
-			{
-				//Creando cookies
-				Cookie loginCookie = new Cookie("user",usuario);
-	            //setting cookie to expiry in 30 mins
-	            loginCookie.setMaxAge(30*60);
-	            response.addCookie(loginCookie);
-	            jspPage="/Home.jsp";
-			}else{ //Usuario Invalido
-				jspPage = "/Login.jsp?error=UsuarioInvalido";
-				
-			}
 		} 
-		else if("nuevoUsuario".equals(action)){
-			String usuario = request.getParameter("usuario");
-			String password = request.getParameter("password");
-			resultado = bd.getInstance().crearUsuario(usuario, password);
-			if(resultado){
-				System.out.println("Usuario creado correctamente");
-			}else{
-				System.out.println("Error al crear el usuario");
-			}
-			jspPage = "/Login.jsp";
-		}else if("users".equals(action)){
-			ArrayList<UsuarioVO> vec =  bd.getInstance().getUsers();
-			
+		else if("search".equals(action)){
+			String filtro = request.getParameter("searchby");
+			String valor = request.getParameter("valor");
+			request.setAttribute("filtro", filtro);
+			request.setAttribute("valor", valor);
+			jspPage = "/Articulos.jsp";
 		}
-		
 		dispatch(jspPage, request, response);
 	}
 
