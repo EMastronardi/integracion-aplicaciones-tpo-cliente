@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -13,17 +12,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.BusinessDelegate;
-import valueObjects.*;
+
 /**
- * Servlet implementation class Controlador
+ * Servlet implementation class LoginServlet
  */
-@WebServlet("/Controlador")
-public class Controlador extends HttpServlet {
+@WebServlet("/LoginServlet")
+public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static Controlador instancia;
+	private static LoginServlet instancia;
 	private BusinessDelegate bd = null;
 	private boolean resultado;
-	
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public LoginServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -39,7 +45,7 @@ public class Controlador extends HttpServlet {
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request,
-		HttpServletResponse response) throws ServletException, IOException {
+			HttpServletResponse response) throws ServletException, IOException {
 
 		String action = request.getParameter("action");
 		String jspPage = "/Login.jsp";
@@ -55,37 +61,22 @@ public class Controlador extends HttpServlet {
 			String usuario = request.getParameter("usuario");
 			String password = request.getParameter("password");
 			resultado = bd.getInstance().validarUsuario(usuario, password);
-			if(resultado == true) //Usuario Valido
+			if (resultado == true) // Usuario Valido
 			{
-				//Creando cookies
-				Cookie loginCookie = new Cookie("user",usuario);
-	            //setting cookie to expiry in 30 mins
-	            loginCookie.setMaxAge(30*180);
-	            response.addCookie(loginCookie);
-	            jspPage="/Home.jsp";
-			}else{ //Usuario Invalido
+				// Creando cookies
+				Cookie loginCookie = new Cookie("user", usuario);
+				// setting cookie to expiry in 30 mins
+				loginCookie.setMaxAge(30 * 180);
+				response.addCookie(loginCookie);
+				jspPage = "/Home.jsp";
+			} else { // Usuario Invalido
 				jspPage = "/Login.jsp?error=UsuarioInvalido";
-				
-			}
-		} 
-		else if("nuevoUsuario".equals(action)){
-			String usuario = request.getParameter("usuario");
-			String password = request.getParameter("password");
-			resultado = bd.getInstance().crearUsuario(usuario, password);
-			if(resultado){
-				System.out.println("Usuario creado correctamente");
-			}else{
-				System.out.println("Error al crear el usuario");
-			}
-			jspPage = "/Login.jsp";
-		}else if("users".equals(action)){
-			ArrayList<UsuarioVO> vec =  bd.getInstance().getUsers();
-			
-		}
-		
-		dispatch(jspPage, request, response);
-	}
 
+			}
+		}
+		dispatch(jspPage, request, response);
+
+	}
 	protected void dispatch(String jsp, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		if (jsp != null) {
@@ -101,4 +92,5 @@ public class Controlador extends HttpServlet {
 	    super.init(config);
 	    bd.getInstance();
 	}
+
 }
