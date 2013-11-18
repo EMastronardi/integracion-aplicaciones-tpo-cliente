@@ -34,7 +34,7 @@
 			}
 		}
 		if (userName == null){
-			response.sendRedirect("/TpoIA-Cliente/Login.jsp?error_cookie");
+			response.sendRedirect("/despacho_web/Login.jsp?error_cookie");
 		}
 	%>	
 	<!-- Wrap all page content here -->
