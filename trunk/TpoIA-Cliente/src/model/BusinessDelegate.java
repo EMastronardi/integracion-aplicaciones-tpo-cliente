@@ -126,7 +126,7 @@ public class BusinessDelegate {
 	public ArrayList<SolicitudVO> searchSolicitudes(String filtro, int valor){
 		return getFacadeRemote().searchSolicitudes(filtro, valor);
 	}
-	public SolicitudVO getSolicitudById(int nroOrdenDespacho){
-		return getFacadeRemote().getSolicitudById(nroOrdenDespacho);
+	public SolicitudVO getSolicitudById(int idSolicitud){
+		return getFacadeRemote().getSolicitudById(idSolicitud);
 	}
 }
