@@ -10,6 +10,7 @@ import javax.naming.InitialContext;
 
 import valueObjects.ArticuloVO;
 import valueObjects.ModuloVO;
+import valueObjects.OrdenDespachoVO;
 import valueObjects.UsuarioVO;
 import xml.RespuestaXML;
 
@@ -107,5 +108,14 @@ public class BusinessDelegate {
 	}
 	public RespuestaXML recibirArticulos(String jsonData){
 		return getFacadeRemote().recibirArticulos(jsonData);
+	}
+	public ArrayList<OrdenDespachoVO> getAllOrdenes(){
+		return getFacadeRemote().getAllOrdenes();
+	}
+	public ArrayList<OrdenDespachoVO> searchOrdenesString(String filtro, int valor){
+		return getFacadeRemote().searchOrdenes(filtro, valor);
+	}
+	public OrdenDespachoVO getOrdenDespachoById(int nroOrdenDespacho){
+		return getFacadeRemote().getOrdenDespachoBtId(nroOrdenDespacho);
 	}
 }
