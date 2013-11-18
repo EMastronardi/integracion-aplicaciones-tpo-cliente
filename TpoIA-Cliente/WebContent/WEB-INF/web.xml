@@ -3,7 +3,7 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
-	<display-name>TpoIA-Cliente</display-name>
+	<display-name>despacho_web</display-name>
 	<servlet>
 		<display-name>Controlador</display-name>
 		<servlet-name>Controlador</servlet-name>
