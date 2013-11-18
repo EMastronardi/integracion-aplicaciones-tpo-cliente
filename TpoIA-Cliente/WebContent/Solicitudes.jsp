@@ -140,7 +140,7 @@ if(request.getAttribute("filtro") == null ){
 			  <tbody>
 			  <%
 			  for(SolicitudVO sol : solicitudes){
-				  out.println("<tr><td>"+sol.getIdSolicitud()+"</td><td>"+sol.getItems().get(0).getArticulo().getDeposito().getIdModulo()+"</td><td>"+sol.getItems().get(0).getArticulo().getDeposito().getNombre()+"</td><td><a href=''>Ver Detalle</a></td></tr>");
+				  out.println("<tr><td>"+sol.getIdSolicitud()+"</td><td>"+sol.getItems().get(0).getArticulo().getDeposito().getIdModulo()+"</td><td>"+sol.getItems().get(0).getArticulo().getDeposito().getNombre()+"</td><td><a href='javascript:openPopUp("+sol.getIdSolicitud()+")'>Ver Detalle</a></td></tr>");
 			  }
 			  %> 
 			  </tbody>
