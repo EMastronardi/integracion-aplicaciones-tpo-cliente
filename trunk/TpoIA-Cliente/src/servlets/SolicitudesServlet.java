@@ -61,8 +61,8 @@ public class SolicitudesServlet extends HttpServlet {
 			jspPage = "/Solicitudes.jsp";
 		}else if("detail".equals(action)){
 			//detail&idorden
-			String idOrdenDespacho = request.getParameter("idorden");
-			request.setAttribute("valor", idOrdenDespacho);
+			String idsolicitud = request.getParameter("idsolicitud");
+			request.setAttribute("valor", idsolicitud);
 			jspPage = "/SolicitudesDetail.jsp";
 		}
 		dispatch(jspPage, request, response);

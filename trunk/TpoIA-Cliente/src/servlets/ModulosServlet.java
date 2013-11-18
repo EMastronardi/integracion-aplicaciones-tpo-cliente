@@ -63,6 +63,7 @@ public class ModulosServlet extends HttpServlet {
 			String usuario = request.getParameter("usuario");
 			String password = request.getParameter("password");
 			String rest = request.getParameter("rest");
+			
 			resultado = bd.getInstance().createModulo(tipo, idModulo, ip, nombre, codigo, usuario, password, jmsdestination, rest);
 			if(resultado){
 				request.setAttribute("return", "OK");
