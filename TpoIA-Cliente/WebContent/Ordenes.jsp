@@ -11,8 +11,7 @@ if(request.getAttribute("filtro") == null ){
 }else{
 	String value = (String)request.getAttribute("valor");
 	String filtro = (String) request.getAttribute("filtro");
-	ordenes = BusinessDelegate.getInstance().searchOrdenesString(filtro, Integer.parseInt(value));
-	
+	ordenes = BusinessDelegate.getInstance().searchOrdenes(filtro, Integer.parseInt(value));
 }
 %>
 <!DOCTYPE html>
@@ -24,7 +23,7 @@ if(request.getAttribute("filtro") == null ){
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.png">
 
-    <title>TPIA / Despacho / Articulos </title>
+    <title>TPIA / Despacho / Solicitudes </title>
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">

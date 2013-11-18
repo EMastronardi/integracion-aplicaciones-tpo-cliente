@@ -1,19 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@page import="valueObjects.ArticuloVO" %>
+<%@page import="valueObjects.SolicitudVO" %>
 <%@page import="model.BusinessDelegate" %>
 <%@page import="java.util.*" %>
 <%
-ArrayList<ArticuloVO> articulos = null;
+ArrayList<SolicitudVO> solicitudes = null;
 if(request.getAttribute("filtro") == null ){
-	articulos = BusinessDelegate.getInstance().getAllArticulos();
+	solicitudes = BusinessDelegate.getInstance().getAllSolicitudes();
 	
 }else{
 	String value = (String)request.getAttribute("valor");
 	String filtro = (String) request.getAttribute("filtro");
-	articulos = BusinessDelegate.getInstance().searchArticulos(filtro, Integer.parseInt(value));
-	//out.println(value);
-	//articulos = BusinessDelegate.getInstance().getAllArticulos();
+	solicitudes = BusinessDelegate.getInstance().searchSolicitudes(filtro, Integer.parseInt(value));
 }
 %>
 <!DOCTYPE html>
@@ -25,7 +23,7 @@ if(request.getAttribute("filtro") == null ){
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.png">
 
-    <title>TPIA / Despacho / Articulos </title>
+    <title>TPIA / Despacho / Solicitudes </title>
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -42,14 +40,16 @@ if(request.getAttribute("filtro") == null ){
 			$(function() {
   			// Handler for .ready() called.
 				$( "#theform" ).submit(function( event ) {
-					if(isNaN($('#valorinput').val())){ 
-						alert("El valor ingresado para la busqueda debe ser Numerico");
+					if(isNaN($('#valorinput').val()) || $('#valorinput').val() == ""){ 
+						bootbox.alert("El valor ingresado para la busqueda debe ser Numerico", function() {});
 						event.preventDefault();
 					}
 				});
 			});
 			
-			
+			function openPopUp(idSolicitud){
+				window.open("SolicitudesServlet?action=detail&idsolicitud="+idSolicitud, "_blank", 'width=560,height=600');
+			}
 	</script>
 	<style>
 		   table tr th {
@@ -83,8 +83,8 @@ if(request.getAttribute("filtro") == null ){
     <ul class="nav navbar-nav">
       <li><a href="Home.jsp" id="inicio">Inicio</a></li>
       <li><a href="Ordenes.jsp">Ordenes</a></li>
-      <li><a href="Solicitudes.jsp">Solicitudes</a></li>
-      <li class="active"><a href="Articulos.jsp">Art&iacute;culos</a></li>
+      <li class="active"><a href="Solicitudes.jsp">Solicitudes</a></li>
+      <li><a href="Articulos.jsp">Art&iacute;culos</a></li>
       <li class="dropdown">
         <a href="#" class="dropdown-toggle active" data-toggle="dropdown">Configuraci&oacute;n <b class="caret"></b></a>
         <ul class="dropdown-menu">
@@ -98,16 +98,19 @@ if(request.getAttribute("filtro") == null ){
 </nav>
       <!-- Begin page content -->
       <div class="container">
+      	<ol class="breadcrumb">
+		  <li><a href="Home.jsp">Inicio</a></li>
+		  <li class="active">Solicitudes</li>
+		</ol>
         <div class="page-header">
-          <h1>Art&iacute;culos</h1>
+          <h1>Solicitudes</h1>
         </div>
        
         <p class="lead">
 		   <div class="panel panel-default">
             <!-- Default panel contents -->
-            
             <div class="panel-heading">
-            	<form method="post"  action='ArticulosServlet?action=search' id="theform">
+            	<form method="post"  action='SolicitudesServlet?action=search' id="theform">
             	<div class="row">
 				  <div class="col-lg-4">
 				    <div class="input-group">
@@ -120,29 +123,31 @@ if(request.getAttribute("filtro") == null ){
 				  </div>
 				 <div class="row">
 			    	<span style="padding-left: 15px;"><b>Buscar Por&nbsp;</b></span>
-			    	<input type="radio" name="searchby" checked="checked" value="codigo">&nbsp;C&oacute;digo de Art&iacute;culo&nbsp;<input type="radio" name="searchby" value="deposito">&nbsp;Deposito
+			    	<input type="radio" name="searchby" checked="checked" value="nrsolicitud">&nbsp;Numero de Solcitud&nbsp;
 			    </div>
 			    </form>
 			    </div>
-			</div>
-			</form>
             <!-- Table -->
-            <table class="table">
+            <%if(solicitudes.size() > 0){ %>
+              <table class="table">
               <thead>
 			  	<tr>
-			  		 <th>C&oacute;digo Art&iacute;culo</th>
-			  		 <th>Nombre</th>
-			  		 <th>Deposito Nro</th>
-			  		 <th>Deposito Nombre</th>
+			  		 <th>Nro Solcitud</th>
+			  		 <th>Nro Deposito de envio</th>
+			  		 <th>Nombre Deposito</th>
+			  		 <th>Acciones</th>
 			  </thead>
 			  <tbody>
 			  <%
-			  for(ArticuloVO art : articulos){
-				  out.println("<tr><td>"+art.getNroArticulo()+"</td><td>"+art.getNombre()+"</td><td>"+art.getDeposito().getIdModulo()+"</td><td>"+art.getDeposito().getNombre()+"</td></tr>");
+			  for(SolicitudVO sol : solicitudes){
+				  out.println("<tr><td>"+sol.getIdSolicitud()+"</td><td>"+sol.getItems().get(0).getArticulo().getDeposito().getIdModulo()+"</td><td>"+sol.getItems().get(0).getArticulo().getDeposito().getNombre()+"</td><td><a href=''>Ver Detalle</a></td></tr>");
 			  }
 			  %> 
 			  </tbody>
 		    </table>
+		    <%}else{ %>
+		    	<div class="alert alert-info"><b>No se ha encontrado ningun Solicitud</b></div>
+		    <%} %>
           </div>
 		</p>
       </div>
