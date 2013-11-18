@@ -8,10 +8,10 @@ import javax.ws.rs.core.MediaType;
 import model.BusinessDelegate;
 import xml.RespuestaXML;
 
-@Path("/rest")
+@Path("/despachador")
 public class recibirArticuloRest {
 	@POST
-	@Path("/despachador/recibirArticulos")
+	@Path("/recibirArticulos")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public RespuestaXML recibirArticulos(String jsonData){	
