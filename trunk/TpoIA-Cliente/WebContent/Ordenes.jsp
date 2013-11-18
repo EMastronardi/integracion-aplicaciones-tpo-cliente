@@ -1,19 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@page import="valueObjects.ArticuloVO" %>
+<%@page import="valueObjects.OrdenDespachoVO" %>
 <%@page import="model.BusinessDelegate" %>
 <%@page import="java.util.*" %>
 <%
-ArrayList<ArticuloVO> articulos = null;
+ArrayList<OrdenDespachoVO> ordenes = null;
 if(request.getAttribute("filtro") == null ){
-	articulos = BusinessDelegate.getInstance().getAllArticulos();
+	ordenes = BusinessDelegate.getInstance().getAllOrdenes();
 	
 }else{
 	String value = (String)request.getAttribute("valor");
 	String filtro = (String) request.getAttribute("filtro");
-	articulos = BusinessDelegate.getInstance().searchArticulos(filtro, Integer.parseInt(value));
-	//out.println(value);
-	//articulos = BusinessDelegate.getInstance().getAllArticulos();
+	ordenes = BusinessDelegate.getInstance().searchOrdenesString(filtro, Integer.parseInt(value));
+	
 }
 %>
 <!DOCTYPE html>
@@ -42,14 +41,16 @@ if(request.getAttribute("filtro") == null ){
 			$(function() {
   			// Handler for .ready() called.
 				$( "#theform" ).submit(function( event ) {
-					if(isNaN($('#valorinput').val())){ 
-						alert("El valor ingresado para la busqueda debe ser Numerico");
+					if(isNaN($('#valorinput').val()) || $('#valorinput').val() == ""){ 
+						bootbox.alert("El valor ingresado para la busqueda debe ser Numerico", function() {});
 						event.preventDefault();
 					}
 				});
 			});
 			
-			
+			function openPopUp(idOrden){
+				window.open("OrdenesServlet?action=detail&idorden="+idOrden, "_blank", 'width=560,height=600');
+			}
 	</script>
 	<style>
 		   table tr th {
@@ -82,9 +83,9 @@ if(request.getAttribute("filtro") == null ){
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
       <li><a href="Home.jsp" id="inicio">Inicio</a></li>
-      <li><a href="Ordenes.jsp">Ordenes</a></li>
+      <li class="active"><a href="Ordenes.jsp">Ordenes</a></li>
       <li><a href="Solicitudes.jsp">Solicitudes</a></li>
-      <li class="active"><a href="Articulos.jsp">Art&iacute;culos</a></li>
+      <li><a href="Articulos.jsp">Art&iacute;culos</a></li>
       <li class="dropdown">
         <a href="#" class="dropdown-toggle active" data-toggle="dropdown">Configuraci&oacute;n <b class="caret"></b></a>
         <ul class="dropdown-menu">
@@ -98,16 +99,19 @@ if(request.getAttribute("filtro") == null ){
 </nav>
       <!-- Begin page content -->
       <div class="container">
+      	<ol class="breadcrumb">
+		  <li><a href="Home.jsp">Inicio</a></li>
+		  <li class="active">Ordenes</li>
+		</ol>
         <div class="page-header">
-          <h1>Art&iacute;culos</h1>
+          <h1>Ordenes de Despacho</h1>
         </div>
        
         <p class="lead">
 		   <div class="panel panel-default">
             <!-- Default panel contents -->
-            
             <div class="panel-heading">
-            	<form method="post"  action='ArticulosServlet?action=search' id="theform">
+            	<form method="post"  action='OrdenesServlet?action=search' id="theform">
             	<div class="row">
 				  <div class="col-lg-4">
 				    <div class="input-group">
@@ -120,29 +124,33 @@ if(request.getAttribute("filtro") == null ){
 				  </div>
 				 <div class="row">
 			    	<span style="padding-left: 15px;"><b>Buscar Por&nbsp;</b></span>
-			    	<input type="radio" name="searchby" checked="checked" value="codigo">&nbsp;C&oacute;digo de Art&iacute;culo&nbsp;<input type="radio" name="searchby" value="deposito">&nbsp;Deposito
+			    	<input type="radio" name="searchby" checked="checked" value="nrorden">&nbsp;Numero de Orden&nbsp;<input type="radio" name="searchby" value="portalweb">&nbsp;Portal Web Nro
 			    </div>
 			    </form>
 			    </div>
-			</div>
-			</form>
             <!-- Table -->
+            <%if(ordenes.size() > 0){ %>
             <table class="table">
               <thead>
 			  	<tr>
-			  		 <th>C&oacute;digo Art&iacute;culo</th>
-			  		 <th>Nombre</th>
-			  		 <th>Deposito Nro</th>
-			  		 <th>Deposito Nombre</th>
+			  		 <th>Nro Orden</th>
+			  		 <th>Fecha</th>
+			  		 <th>Nro Venta</th>
+			  		 <th>Portal Web </th>
+			  		 <th>Nro Portal Web </th>
+			  		 <th>Accion</th>
 			  </thead>
 			  <tbody>
 			  <%
-			  for(ArticuloVO art : articulos){
-				  out.println("<tr><td>"+art.getNroArticulo()+"</td><td>"+art.getNombre()+"</td><td>"+art.getDeposito().getIdModulo()+"</td><td>"+art.getDeposito().getNombre()+"</td></tr>");
+			  for(OrdenDespachoVO orden : ordenes){
+				  out.println("<tr><td>"+orden.getIdOrdenDespacho()+"</td><td>"+orden.getFecha()+"</td><td>"+orden.getNroVenta()+"</td><td>"+orden.getModulo().getNombre()+"</td><td>"+orden.getModulo().getIdModulo()+"</td><td><a href=''>Ver Track</a>&nbsp;<a href='javascript:openPopUp("+orden.getIdOrdenDespacho()+")'>Ver Detalle</a></td></tr>");
 			  }
 			  %> 
 			  </tbody>
 		    </table>
+		    <%}else{ %>
+		    	<div class="alert alert-info"><b>No se ha encontrado ningun Orden de Despacho</b></div>
+		    <%} %>
           </div>
 		</p>
       </div>
