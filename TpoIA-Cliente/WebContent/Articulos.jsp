@@ -12,8 +12,7 @@ if(request.getAttribute("filtro") == null ){
 	String value = (String)request.getAttribute("valor");
 	String filtro = (String) request.getAttribute("filtro");
 	articulos = BusinessDelegate.getInstance().searchArticulos(filtro, Integer.parseInt(value));
-	//out.println(value);
-	//articulos = BusinessDelegate.getInstance().getAllArticulos();
+	
 }
 %>
 <!DOCTYPE html>

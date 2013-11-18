@@ -39,6 +39,15 @@
   <servlet-name>ArticulosServlet</servlet-name>
   <url-pattern>/ArticulosServlet</url-pattern>
  </servlet-mapping>
+ <servlet>
+  <display-name>OrdenesServlet</display-name>
+  <servlet-name>OrdenesServlet</servlet-name>
+  <servlet-class>servlets.OrdenesServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>OrdenesServlet</servlet-name>
+  <url-pattern>/OrdenesServlet</url-pattern>
+ </servlet-mapping>
  <welcome-file-list>
   <welcome-file>index.html</welcome-file>
   <welcome-file>index.htm</welcome-file>
