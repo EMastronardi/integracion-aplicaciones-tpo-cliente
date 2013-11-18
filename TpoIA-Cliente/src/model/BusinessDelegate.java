@@ -11,6 +11,7 @@ import javax.naming.InitialContext;
 import valueObjects.ArticuloVO;
 import valueObjects.ModuloVO;
 import valueObjects.OrdenDespachoVO;
+import valueObjects.SolicitudVO;
 import valueObjects.UsuarioVO;
 import xml.RespuestaXML;
 
@@ -112,10 +113,20 @@ public class BusinessDelegate {
 	public ArrayList<OrdenDespachoVO> getAllOrdenes(){
 		return getFacadeRemote().getAllOrdenes();
 	}
-	public ArrayList<OrdenDespachoVO> searchOrdenesString(String filtro, int valor){
+	public ArrayList<OrdenDespachoVO> searchOrdenes(String filtro, int valor){
 		return getFacadeRemote().searchOrdenes(filtro, valor);
 	}
 	public OrdenDespachoVO getOrdenDespachoById(int nroOrdenDespacho){
-		return getFacadeRemote().getOrdenDespachoBtId(nroOrdenDespacho);
+		return getFacadeRemote().getOrdenDespachoById(nroOrdenDespacho);
+	}
+	
+	public ArrayList<SolicitudVO> getAllSolicitudes(){
+		return getFacadeRemote().getAllSolicitudes();
+	}
+	public ArrayList<SolicitudVO> searchSolicitudes(String filtro, int valor){
+		return getFacadeRemote().searchSolicitudes(filtro, valor);
+	}
+	public SolicitudVO getSolicitudById(int nroOrdenDespacho){
+		return getFacadeRemote().getSolicitudById(nroOrdenDespacho);
 	}
 }
