@@ -24,19 +24,6 @@
 </head>
 
 <body>
-<%
-		String userName = null;
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("user"))
-					userName = cookie.getValue();
-			}
-		}
-		if (userName == null){
-			response.sendRedirect("/despacho_web/Login.jsp?error_cookie");
-		}
-	%>	
 	<!-- Wrap all page content here -->
 	<div id="wrap">
 
@@ -49,7 +36,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">TPO-IA / Despacho - Usuario: <%=" "+userName%></a>
+				<a class="navbar-brand" href="#">TPO-IA / Despacho</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
