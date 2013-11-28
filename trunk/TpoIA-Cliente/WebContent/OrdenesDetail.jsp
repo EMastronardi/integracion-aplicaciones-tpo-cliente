@@ -26,7 +26,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.png">
 
-    <title>TPIA / Despacho / Ordenes Detalle </title>
+    <title>TPIA / Despacho / Ordenes Track </title>
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -71,10 +71,10 @@
       	<ol class="breadcrumb">
 		  <li><a class="active">Inicio</a></li>
 		  <li class="active">Ordenes</li>
-		  <li class="active">Detalle</li>
+		  <li class="active">Track</li>
 		</ol>
         <div class="page-header">
-          <h1>Ordenes de Despacho - Detalle</h1>
+          <h1>Ordenes de Despacho - Track</h1>
         </div>
        
         <p class="lead">

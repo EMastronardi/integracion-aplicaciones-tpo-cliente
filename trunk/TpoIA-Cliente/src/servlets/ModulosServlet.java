@@ -58,13 +58,9 @@ public class ModulosServlet extends HttpServlet {
 			String tipo = request.getParameter("tipo");
 			String codigo = request.getParameter("codigo");
 			String ip = request.getParameter("ip");
-			String jmsdestination = request.getParameter("jmsdestination");
 			String nombre = request.getParameter("nombre");
-			String usuario = request.getParameter("usuario");
-			String password = request.getParameter("password");
-			String rest = request.getParameter("rest");
 			
-			resultado = bd.getInstance().createModulo(tipo, idModulo, ip, nombre, codigo, usuario, password, jmsdestination, rest);
+			resultado = bd.getInstance().createModulo(tipo, idModulo, ip, nombre, codigo);
 			if(resultado){
 				request.setAttribute("return", "OK");
 				System.out.println("Modulo creado correctamente");
@@ -79,12 +75,8 @@ public class ModulosServlet extends HttpServlet {
 			String tipo = request.getParameter("tipo");
 			String codigo = request.getParameter("codigo");
 			String ip = request.getParameter("ip");
-			String jmsdestination = request.getParameter("jmsdestination");
 			String nombre = request.getParameter("nombre");
-			String usuario = request.getParameter("usuario");
-			String password = request.getParameter("password");
-			String rest = request.getParameter("rest");
-			resultado = bd.getInstance().updateModulo(tipo, idModulo, ip, nombre, codigo, usuario, password, jmsdestination, rest);
+			resultado = bd.getInstance().updateModulo(tipo, idModulo, ip, nombre, codigo);
 			if(resultado){
 				request.setAttribute("return", "OK");
 				System.out.println("Modulo actualizado correctamente");
