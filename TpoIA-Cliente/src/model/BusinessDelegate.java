@@ -88,18 +88,14 @@ public class BusinessDelegate {
 	public ArrayList<ModuloVO> getAllModulos(){
 		return getFacadeRemote().getAllModulos();
 	}
-	public boolean createModulo(String tipo, int idModulo, String ip, String nombre,
-			String codigo, String usuario, String password,
-			String jmsDestination, String rest){
-		return getFacadeRemote().createModulo(tipo, idModulo, ip, nombre, codigo, usuario, password, jmsDestination, rest);
+	public boolean createModulo(String tipo, int idModulo, String ip, String nombre,String codigo){
+		return getFacadeRemote().createModulo(tipo, idModulo, ip, nombre, codigo);
 	}
 	public boolean deleteModulo(int idModulo){
 		return getFacadeRemote().deleteModulo(idModulo);
 	}
-	public boolean updateModulo(String tipo, int idModulo, String ip, String nombre,
-			String codigo, String usuario, String password,
-			String jmsDestination, String rest){
-		return getFacadeRemote().updateModulo(tipo,  idModulo, ip, nombre, codigo,  usuario,  password, jmsDestination, rest);
+	public boolean updateModulo(String tipo, int idModulo, String ip, String nombre,String codigo){
+		return getFacadeRemote().updateModulo(tipo,  idModulo, ip, nombre, codigo);
 	}
 	public ArrayList<ArticuloVO> getAllArticulos(){
 		return getFacadeRemote().getArticulos();

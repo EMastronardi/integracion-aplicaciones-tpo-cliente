@@ -23,7 +23,7 @@ if(request.getAttribute("filtro") == null ){
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.png">
 
-    <title>TPIA / Despacho / Solicitudes </title>
+    <title>TPIA / Despacho / Ordenes </title>
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -142,7 +142,7 @@ if(request.getAttribute("filtro") == null ){
 			  <tbody>
 			  <%
 			  for(OrdenDespachoVO orden : ordenes){
-				  out.println("<tr><td>"+orden.getIdOrdenDespacho()+"</td><td>"+orden.getFecha()+"</td><td>"+orden.getNroVenta()+"</td><td>"+orden.getModulo().getNombre()+"</td><td>"+orden.getModulo().getIdModulo()+"</td><td><a href=''>Ver Track</a>&nbsp;<a href='javascript:openPopUp("+orden.getIdOrdenDespacho()+")'>Ver Detalle</a></td></tr>");
+				  out.println("<tr><td>"+orden.getIdOrdenDespacho()+"</td><td>"+orden.getFecha()+"</td><td>"+orden.getNroVenta()+"</td><td>"+orden.getModulo().getNombre()+"</td><td>"+orden.getModulo().getIdModulo()+"</td><td><a href='javascript:openPopUp("+orden.getIdOrdenDespacho()+")'>Ver Track</a></td></tr>");
 			  }
 			  %> 
 			  </tbody>
