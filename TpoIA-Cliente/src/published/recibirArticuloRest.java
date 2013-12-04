@@ -14,8 +14,10 @@ public class recibirArticuloRest {
 	@Path("/recibirArticulos")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public RespuestaXML recibirArticulos(String jsonData){	
-		return BusinessDelegate.getInstance().recibirArticulos(jsonData);
+	public String recibirArticulos(String jsonData){	
+		RespuestaXML aux = BusinessDelegate.getInstance().recibirArticulos(jsonData);
+		String resultado = "{\"estado\" : \""+aux.getEstado()+"\",\"mensaje\" : \""+aux.getMensaje()+"\"}"; 
+		return resultado;
 	}
 
 }
