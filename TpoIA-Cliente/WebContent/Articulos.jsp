@@ -74,7 +74,7 @@ if(request.getAttribute("filtro") == null ){
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="#">TPO-IA / Despacho - Usuario: </a>
+    <a class="navbar-brand" href="#">TPO-IA / Despacho</a>
   </div>
 
   <!-- Collect the nav links, forms, and other content for toggling -->
@@ -140,7 +140,10 @@ if(request.getAttribute("filtro") == null ){
 			  <tbody>
 			  <%
 			  for(ArticuloVO art : articulos){
-				  out.println("<tr><td>"+art.getNroArticulo()+"</td><td>"+art.getNombre()+"</td><td>"+art.getDeposito().getIdModulo()+"</td><td>"+art.getDeposito().getNombre()+"</td></tr>");
+				  if(art.getDeposito()!= null)
+				  	out.println("<tr><td>"+art.getNroArticulo()+"</td><td>"+art.getNombre()+"</td><td>"+art.getDeposito().getIdModulo()+"</td><td>"+art.getDeposito().getNombre()+"</td></tr>");
+				  else
+					  out.println("<tr><td>"+art.getNroArticulo()+"</td><td>"+art.getNombre()+"</td><td>Dep. Inv&aactue;lido</td><td>Dep. Inv&aactue;lido</td></tr>");					  
 			  }
 			  %> 
 			  </tbody>
