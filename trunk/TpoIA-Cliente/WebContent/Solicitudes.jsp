@@ -75,7 +75,7 @@ if(request.getAttribute("filtro") == null ){
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="#">TPO-IA / Despacho - Usuario: </a>
+    <a class="navbar-brand" href="#">TPO-IA / Despacho </a>
   </div>
 
   <!-- Collect the nav links, forms, and other content for toggling -->
