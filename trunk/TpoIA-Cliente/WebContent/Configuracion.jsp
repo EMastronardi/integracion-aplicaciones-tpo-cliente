@@ -254,7 +254,7 @@
 			  <%
 			  //tipoSelect , idmoduloselect, codigoselect, ipselect, jmsselect, nombreselect,userselect, passelect
 			 	 for(ModuloVO modulo : modulos){
-					  out.println("<tr><td><input type='checkbox' value='"+modulo.getIdModulo()+"' onClick=\"unChecked(this,'"+modulo.getTipo()+"', '"+modulo.getIdModulo()+"' , '"+modulo.getCodigo()+"', '"+modulo.getIp()+"', '"+modulo.getJmsDestination()+"', '"+modulo.getNombre()+"', '"+modulo.getUsuario()+"', '"+modulo.getPassword()+"')\"/></td><td>"+modulo.getIdModulo()+"</td><td>"+modulo.getNombre()+"</td><td>"+modulo.getTipo()+"</td><td>"+modulo.getIp()+"</td><td>"+modulo.getCodigo()+"</td><td>"+modulo.getJmsDestination()+"</td><td>"+modulo.getUsuario()+"</td><td>"+modulo.getPassword()+"</td></tr>");
+					  out.println("<tr><td><input type='checkbox' value='"+modulo.getIdModulo()+"' onClick=\"unChecked(this,'"+modulo.getTipo()+"', '"+modulo.getIdModulo()+"' , '"+modulo.getCodigo()+"', '"+modulo.getIp()+"', '"+modulo.getNombre()+"')\"/></td><td>"+modulo.getIdModulo()+"</td><td>"+modulo.getNombre()+"</td><td>"+modulo.getTipo()+"</td><td>"+modulo.getIp()+"</td><td>"+modulo.getCodigo()+"</td></tr>");
 				  }
 			  
 			  %> 
